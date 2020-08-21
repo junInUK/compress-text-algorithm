@@ -70,9 +70,6 @@ public class Compressor {
         letterArr = this.inputString.toCharArray();
         //  let i < letterArr.length + 1 because if not, the last word cannot been process
         for(int i = 0; i < letterArr.length + 1; i++){
-//            if(i < letterArr.length){
-//                System.out.println(letterArr[i]);
-//            }
             /**
              *  If letter i in the input string and is a letter a-z or A-Z
              *  append this letter to variable word until letter i is not a letter or meet the end of input string

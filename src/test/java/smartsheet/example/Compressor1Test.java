@@ -10,7 +10,8 @@ public class Compressor1Test {
             compressor,
             compressorTwoIDSplitWithNumber,
             compressorMultiLine,
-            compressorSimpleMultiLine;
+            compressorSimpleMultiLine,
+            compressorWithMinWordLength;
 
     @Before
     public void before(){
@@ -33,6 +34,10 @@ public class Compressor1Test {
                 "}");
         compressorSimpleMultiLine = new Compressor1("Hello\n" +
                 "java");
+        compressorWithMinWordLength = new Compressor1(
+                " *&you say yes, I say no you say stop and I say go go go say4no",
+                2
+        );
     }
 
     @Test
@@ -111,5 +116,18 @@ public class Compressor1Test {
 
     }
 
+    @Test
+    public void canCompressorStringWithMinWordLength(){
+        compressorWithMinWordLength.minimise();
+        assertEquals(" *&you say yes, I $1 no $0 $1 stop and I $1 go go go $1\\4no",
+                compressorWithMinWordLength.getOutputString());
+    }
+
+    @Test
+    public void canRevertStringWithMinWordLength(){
+        compressorWithMinWordLength.minimise();
+        assertEquals(" *&you say yes, I say no you say stop and I say go go go say4no",
+                compressorWithMinWordLength.revert());
+    }
 
 }
