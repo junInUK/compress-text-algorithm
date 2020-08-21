@@ -55,14 +55,14 @@ public class CompressorTest {
 
     @Test
     public void canCompressorString(){
-        System.out.println(compressor.getInputString());
+//        System.out.println(compressor.getInputString());
         compressor.minimise();
         assertEquals(" *&you say yes, I $1 no $0 $1 stop and $3 $1 go $12 $12 $14$5",compressor.getOutputString());
     }
 
     @Test
     public void canCompressorStringWithMinWordLength(){
-        System.out.println(compressorWithMinWordLength.getInputString());
+//        System.out.println(compressorWithMinWordLength.getInputString());
         compressorWithMinWordLength.minimise();
         assertEquals(" *&you say yes, I $1 no $0 $1 stop and I $1 go go go $14no",
                 compressorWithMinWordLength.getOutputString());
@@ -70,7 +70,7 @@ public class CompressorTest {
 
     @Test
     public void canCompressorMultiline(){
-        System.out.println(compressorMultiLine.getInputString());
+//        System.out.println(compressorMultiLine.getInputString());
         compressorMultiLine.minimise();
 
         assertEquals("/*\n" +
@@ -90,7 +90,7 @@ public class CompressorTest {
 
     @Test
     public void canComparessMultilineWithMinWordLength(){
-        System.out.println(compressorMultiLineWithMinWordLength.getInputString());
+//        System.out.println(compressorMultiLineWithMinWordLength.getInputString());
         compressorMultiLineWithMinWordLength.minimise();
         assertEquals("/*\n" +
                 "* Function to chop a string in half. \n" +
@@ -108,7 +108,7 @@ public class CompressorTest {
 
     @Test
     public void canCompressorSimpleMultiline(){
-        System.out.println(compressorSimpleMultiLine.getInputString());
+//        System.out.println(compressorSimpleMultiLine.getInputString());
         compressorSimpleMultiLine.minimise();
         assertEquals("Hello\n" +
                                 "java", compressorSimpleMultiLine.getOutputString());

@@ -81,7 +81,7 @@ public class Compressor {
                 word.append(letterArr[i]);
                 continue;   //  jump out of this loop and start next letter
             }
-            System.out.println("word[" + word + "] " + "index: " +index);
+//            System.out.println("word[" + word + "] " + "index: " +index);
             /**
              * If the letter wasn't letter a-z or A-Z, the temporary word was empty because of last setting.
              */
@@ -106,7 +106,7 @@ public class Compressor {
             if( i < letterArr.length){
                 tmpOutputString.append(letterArr[i]);
             }
-            System.out.println("output string:[" + tmpOutputString +"]");
+//            System.out.println("output string:[" + tmpOutputString +"]");
             this.outputString = tmpOutputString.toString();
         }
     }

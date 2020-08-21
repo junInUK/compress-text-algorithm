@@ -49,9 +49,60 @@ public class Compressor1 {
         if(word.length() > 0){
             processWord(word, index);
         }
-        System.out.println(this.outputString);
+//        System.out.println(this.outputString);
     }
-    
+
+    public String revert(){
+        String revertString = "";
+        String specialWord = "";
+        char [] letterArr = new char[this.outputString.length()];
+        letterArr = this.outputString.toCharArray();
+        int i = 0;
+        System.out.println("revert string:");
+        while( i < letterArr.length){
+            if( letterArr[i] == '$' ){
+                for( int j = i + 1; j < letterArr.length; j++){
+                    if( j < letterArr.length && (letterArr[j] - 48 >= 0 && letterArr[j] -48 <=9)){
+                        specialWord += letterArr[i+1];
+                        i ++;
+                    } else {
+                        break;
+                    }
+                }
+//                if( i+1 < letterArr.length && (letterArr[i+1] - 48 >= 0 && letterArr[i+1] -48 <=9)){
+//                    specialWord += letterArr[i+1];
+//                    i ++;
+//                    continue;
+//                }
+            }
+            if(specialWord.length() > 0){
+                Integer value = null;
+                value = Integer.valueOf(specialWord);
+                revertString += getWord(value);
+            } else {
+                System.out.print(letterArr[i]);
+                revertString += letterArr[i];
+            }
+            specialWord = "";
+            i ++;
+        }
+        System.out.println("\nEnd");
+        return revertString;
+    }
+
+    public String getWord(Integer value){
+    //    List<Object> keyList = new ArrayList<>();
+        String word = null;
+        for(String key: this.identifierMap.keySet()){
+    //        System.out.println("key:[" + key + "]");
+    //        System.out.println("value:["+ this.identifierMap.get(key) + "]");
+            if(this.identifierMap.get(key).equals(value)){
+                word = key;
+            }
+        }
+        return word;
+    }
+
     private void processWord(String word, int index){
         if(this.identifierMap.containsKey(word)){
             this.outputString += "$" + identifierMap.get(word);
@@ -59,6 +110,6 @@ public class Compressor1 {
             this.identifierMap.put(word, index);
             this.outputString += word;
         }
-        System.out.println("word:[" + word + "]");
+//        System.out.println("word:[" + word + "]");
     }
 }

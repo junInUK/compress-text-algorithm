@@ -6,10 +6,14 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
 public class Compressor1Test {
-    Compressor1 compressor, compressorMultiLine, compressorSimpleMultiLine;
+    Compressor1 compressorEasy,
+            compressor,
+            compressorMultiLine,
+            compressorSimpleMultiLine;
 
     @Before
     public void before(){
+        compressorEasy = new Compressor1("you say yes, I say no you say stop and I say go go go");
         compressor = new Compressor1(" *&you say yes, I say no you say stop and I say go go go say4no");
         compressorMultiLine = new Compressor1("/*\n" +
                 "* Function to chop a string in half. \n" +
@@ -40,8 +44,31 @@ public class Compressor1Test {
     }
 
     @Test
+    public void canRevertString(){
+        System.out.println("Original String:    [" + compressor.getInputString() + "]");
+        compressor.minimise();
+        System.out.println("After minimise String:[" + compressor.getOutputString() + "]");
+        System.out.println("After revert String:[" + compressor.revert() + "]");
+    }
+
+    @Test
+    public void canRevertStringEasy(){
+        System.out.println("Original String:[" + compressorEasy.getInputString() + "]");
+        compressorEasy.minimise();
+        System.out.println("After minimise String:[" + compressorEasy.getOutputString() + "]");
+        System.out.println("After revert String:[" + compressorEasy.revert() + "]");
+    }
+
+    @Test
+    public void canGetWordByIndex(){
+        System.out.println(compressor.getInputString());
+        compressor.minimise();
+        assertEquals("say", compressor.getWord(1));
+    }
+
+    @Test
     public void canCompressorMultiline(){
-        System.out.println(compressorMultiLine.getInputString());
+//        System.out.println(compressorMultiLine.getInputString());
         compressorMultiLine.minimise();
 
         assertEquals("/*\n" +
