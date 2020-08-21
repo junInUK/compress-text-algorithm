@@ -47,53 +47,53 @@ public class Compressor1Test {
 
     @Test
     public void canCompressorString(){
-        System.out.println(compressor.getInputString());
+//        System.out.println(compressor.getInputString());
         compressor.minimise();
         assertEquals(" *&you say yes, I $1 no $0 $1 stop and $3 $1 go $12 $12 $1*$5",compressor.getOutputString());
     }
 
     @Test
     public void canCompressorStringTwoIdentifierSplitByNumber(){
-        System.out.println("Original String:    [" + compressorTwoIDSplitWithNumber.getInputString() + "]");
+//        System.out.println("Original String:    [" + compressorTwoIDSplitWithNumber.getInputString() + "]");
         compressorTwoIDSplitWithNumber.minimise();
-        System.out.println("After minimise String:[" + compressorTwoIDSplitWithNumber.getOutputString() + "]");
+//        System.out.println("After minimise String:[" + compressorTwoIDSplitWithNumber.getOutputString() + "]");
         assertEquals("  *&you say yes, I $1 no $0 $1 stop and $3 $1 go $12 $12 $1\\4$5",
                 compressorTwoIDSplitWithNumber.getOutputString());
     }
 
     @Test
     public void canRevertString(){
-        System.out.println("Original String:    [" + compressor.getInputString() + "]");
+//        System.out.println("Original String:    [" + compressor.getInputString() + "]");
         compressor.minimise();
-        System.out.println("After minimise String:[" + compressor.getOutputString() + "]");
-        System.out.println("After revert String:[" + compressor.revert() + "]");
+//        System.out.println("After minimise String:[" + compressor.getOutputString() + "]");
+//        System.out.println("After revert String:[" + compressor.revert() + "]");
         assertEquals(" *&you say yes, I say no you say stop and I say go go go say*no",
                 compressor.revert());
     }
 
     @Test
     public void canRevertStringTwoIdentifierSplitByNumber(){
-        System.out.println("Original String:    [" + compressorTwoIDSplitWithNumber.getInputString() + "]");
+//        System.out.println("Original String:    [" + compressorTwoIDSplitWithNumber.getInputString() + "]");
         compressorTwoIDSplitWithNumber.minimise();
-        System.out.println("After minimise String:[" + compressorTwoIDSplitWithNumber.getOutputString() + "]");
-        System.out.println("After revert String:[" + compressorTwoIDSplitWithNumber.revert() + "]");
+//        System.out.println("After minimise String:[" + compressorTwoIDSplitWithNumber.getOutputString() + "]");
+//        System.out.println("After revert String:[" + compressorTwoIDSplitWithNumber.revert() + "]");
         assertEquals("  *&you say yes, I say no you say stop and I say go go go say4no",
                 compressorTwoIDSplitWithNumber.revert());
     }
 
     @Test
     public void canRevertStringEasy(){
-        System.out.println("Original String:[" + compressorEasy.getInputString() + "]");
+//        System.out.println("Original String:[" + compressorEasy.getInputString() + "]");
         compressorEasy.minimise();
-        System.out.println("After minimise String:[" + compressorEasy.getOutputString() + "]");
-        System.out.println("After revert String:[" + compressorEasy.revert() + "]");
+//        System.out.println("After minimise String:[" + compressorEasy.getOutputString() + "]");
+//        System.out.println("After revert String:[" + compressorEasy.revert() + "]");
         assertEquals("YOU say yes, I say no you say stop and I say go go go",
                 compressorEasy.revert());
     }
 
     @Test
     public void canGetWordByIndex(){
-        System.out.println(compressor.getInputString());
+//        System.out.println(compressor.getInputString());
         compressor.minimise();
         assertEquals("say", compressor.getWord(1));
     }

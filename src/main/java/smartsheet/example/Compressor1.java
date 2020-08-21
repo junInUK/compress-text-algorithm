@@ -65,7 +65,8 @@ public class Compressor1 {
     }
 
     public void minimise() {
-        String word = "";
+        StringBuffer word = new StringBuffer();
+        StringBuffer tmpOutputString = new StringBuffer();
         int index = 0;
 
         char [] letterArr = new char[this.inputString.length()];
@@ -73,37 +74,39 @@ public class Compressor1 {
         int i = 0;
         while(i < letterArr.length){
             if(Character.isLowerCase(letterArr[i]) || Character.isUpperCase(letterArr[i])){
-                word += letterArr[i];
+                word.append(letterArr[i]);
                 i++;
                 continue;
             }else{
                 if(word.length() > 0){
-                    processWord(word, index);
+                    processWord(word.toString(), index, tmpOutputString);
                     index ++;
                 }
-                word = "";
+                word.setLength(0);
                 if(Character.isDigit(letterArr[i])){
                     //  If current character is number and last character isn't space
                     if(i - 1 >= 0 && letterArr[i-1] != 32) {
-                        this.outputString += "\\" + letterArr[i];
+                        tmpOutputString.append("\\").append(letterArr[i]);
                     } else {
-                        this.outputString += letterArr[i];
+                        tmpOutputString.append(letterArr[i]);
                     }
                 } else {
-                    this.outputString += letterArr[i];
+                    tmpOutputString.append(letterArr[i]);
                 }
             }
             i++;
         }
 
         if(word.length() > 0){
-            processWord(word, index);
+            processWord(word.toString(), index, tmpOutputString);
         }
+        this.outputString = tmpOutputString.toString();
     }
 
     public String revert(){
         String revertString = "";
-        String specialWord = "";
+        StringBuffer tmpRevertString = new StringBuffer();
+        StringBuffer specialWord = new StringBuffer();
         char [] letterArr = new char[this.outputString.length()];
         letterArr = this.outputString.toCharArray();
         int i = 0;
@@ -114,7 +117,7 @@ public class Compressor1 {
             if( letterArr[i] == '$' ){
                 for( int j = i + 1; j < letterArr.length; j++){
                     if( j < letterArr.length && Character.isDigit(letterArr[j])){
-                        specialWord += letterArr[i+1];
+                        specialWord.append(letterArr[i+1]);
                         i ++;
                     } else {
                         break;
@@ -123,14 +126,17 @@ public class Compressor1 {
             }
             if(specialWord.length() > 0){
                 Integer value = null;
-                value = Integer.valueOf(specialWord);
-                revertString += getWord(value);
+                value = Integer.valueOf(specialWord.toString());
+                tmpRevertString.append(getWord(value));
+            //    revertString += getWord(value);
             } else {
-                revertString += letterArr[i];
+            //    revertString += letterArr[i];
+                tmpRevertString.append(letterArr[i]);
             }
-            specialWord = "";
+            specialWord.setLength(0);
             i ++;
         }
+        revertString = tmpRevertString.toString();
         return revertString;
     }
 
@@ -144,17 +150,17 @@ public class Compressor1 {
         return word;
     }
 
-    private void processWord(String word, int index){
+    private void processWord(String word, int index, StringBuffer updateString){
         /**
          * If the word in the identifierMap and word length longer than the minWordLength,
          * use $+index to replace this word.
          * index is the first appearance of the word
          */
         if(this.identifierMap.containsKey(word) && word.length() > this.minWordLength){
-            this.outputString += "$" + identifierMap.get(word);
+            updateString.append("$").append(identifierMap.get(word));
         } else {
             this.identifierMap.put(word, index);
-            this.outputString += word;
+            updateString.append(word);
         }
     }
 }
