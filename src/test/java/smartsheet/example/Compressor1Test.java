@@ -52,6 +52,8 @@ public class Compressor1Test {
         System.out.println("Original String:    [" + compressorTwoIDSplitWithNumber.getInputString() + "]");
         compressorTwoIDSplitWithNumber.minimise();
         System.out.println("After minimise String:[" + compressorTwoIDSplitWithNumber.getOutputString() + "]");
+        assertEquals("  *&you say yes, I $1 no $0 $1 stop and $3 $1 go $12 $12 $1\\4$5",
+                compressorTwoIDSplitWithNumber.getOutputString());
     }
 
     @Test
@@ -60,6 +62,8 @@ public class Compressor1Test {
         compressor.minimise();
         System.out.println("After minimise String:[" + compressor.getOutputString() + "]");
         System.out.println("After revert String:[" + compressor.revert() + "]");
+        assertEquals(" *&you say yes, I say no you say stop and I say go go go say*no",
+                compressor.revert());
     }
 
     @Test
@@ -68,6 +72,8 @@ public class Compressor1Test {
         compressorTwoIDSplitWithNumber.minimise();
         System.out.println("After minimise String:[" + compressorTwoIDSplitWithNumber.getOutputString() + "]");
         System.out.println("After revert String:[" + compressorTwoIDSplitWithNumber.revert() + "]");
+        assertEquals("  *&you say yes, I say no you say stop and I say go go go say4no",
+                compressorTwoIDSplitWithNumber.revert());
     }
 
     @Test
@@ -76,6 +82,8 @@ public class Compressor1Test {
         compressorEasy.minimise();
         System.out.println("After minimise String:[" + compressorEasy.getOutputString() + "]");
         System.out.println("After revert String:[" + compressorEasy.revert() + "]");
+        assertEquals("YOU say yes, I say no you say stop and I say go go go",
+                compressorEasy.revert());
     }
 
     @Test
@@ -87,9 +95,7 @@ public class Compressor1Test {
 
     @Test
     public void canCompressorMultiline(){
-//        System.out.println(compressorMultiLine.getInputString());
         compressorMultiLine.minimise();
-
         assertEquals("/*\n" +
                 "* Function to chop a string in half. \n" +
                 "*/ \n" +

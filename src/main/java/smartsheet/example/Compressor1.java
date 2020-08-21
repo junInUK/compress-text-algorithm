@@ -42,7 +42,12 @@ public class Compressor1 {
                 }
                 word = "";
                 if(Character.isDigit(letterArr[i])){
-                    this.outputString += "\\" + letterArr[i];
+                    //  If current character is number and last character isn't space
+                    if(i - 1 >= 0 && letterArr[i-1] != 32) {
+                        this.outputString += "\\" + letterArr[i];
+                    } else {
+                        this.outputString += letterArr[i];
+                    }
                 } else {
                     this.outputString += letterArr[i];
                 }
@@ -61,7 +66,6 @@ public class Compressor1 {
         char [] letterArr = new char[this.outputString.length()];
         letterArr = this.outputString.toCharArray();
         int i = 0;
-        System.out.println("revert string:");
         while( i < letterArr.length){
             if( letterArr[i] == '\\' ){
                 i ++;
@@ -81,13 +85,11 @@ public class Compressor1 {
                 value = Integer.valueOf(specialWord);
                 revertString += getWord(value);
             } else {
-                System.out.print(letterArr[i]);
                 revertString += letterArr[i];
             }
             specialWord = "";
             i ++;
         }
-        System.out.println("\nEnd");
         return revertString;
     }
 
