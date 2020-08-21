@@ -8,13 +8,17 @@ import static org.junit.Assert.assertEquals;
 public class Compressor1Test {
     Compressor1 compressorEasy,
             compressor,
+            compressorTwoIDSplitWithNumber,
             compressorMultiLine,
             compressorSimpleMultiLine;
 
     @Before
     public void before(){
-        compressorEasy = new Compressor1("you say yes, I say no you say stop and I say go go go");
-        compressor = new Compressor1(" *&you say yes, I say no you say stop and I say go go go say4no");
+        compressorEasy = new Compressor1("YOU say yes, I say no you say stop and I say go go go");
+        compressor = new Compressor1(" *&you say yes, I say no you say stop and I say go go go say*no");
+        compressorTwoIDSplitWithNumber = new Compressor1(
+                "  *&you say yes, I say no you say stop and I say go go go say4no"
+        );
         compressorMultiLine = new Compressor1("/*\n" +
                 "* Function to chop a string in half. \n" +
                 "*/ \n" +
@@ -33,14 +37,21 @@ public class Compressor1Test {
 
     @Test
     public void canGetInput(){
-        assertEquals(" *&you say yes, I say no you say stop and I say go go go say4no", compressor.getInputString());
+        assertEquals(" *&you say yes, I say no you say stop and I say go go go say*no", compressor.getInputString());
     }
 
     @Test
     public void canCompressorString(){
         System.out.println(compressor.getInputString());
         compressor.minimise();
-        assertEquals(" *&you say yes, I $1 no $0 $1 stop and $3 $1 go $12 $12 $14$5",compressor.getOutputString());
+        assertEquals(" *&you say yes, I $1 no $0 $1 stop and $3 $1 go $12 $12 $1*$5",compressor.getOutputString());
+    }
+
+    @Test
+    public void canCompressorStringTwoIdentifierSplitByNumber(){
+        System.out.println("Original String:    [" + compressorTwoIDSplitWithNumber.getInputString() + "]");
+        compressorTwoIDSplitWithNumber.minimise();
+        System.out.println("After minimise String:[" + compressorTwoIDSplitWithNumber.getOutputString() + "]");
     }
 
     @Test
@@ -49,6 +60,14 @@ public class Compressor1Test {
         compressor.minimise();
         System.out.println("After minimise String:[" + compressor.getOutputString() + "]");
         System.out.println("After revert String:[" + compressor.revert() + "]");
+    }
+
+    @Test
+    public void canRevertStringTwoIdentifierSplitByNumber(){
+        System.out.println("Original String:    [" + compressorTwoIDSplitWithNumber.getInputString() + "]");
+        compressorTwoIDSplitWithNumber.minimise();
+        System.out.println("After minimise String:[" + compressorTwoIDSplitWithNumber.getOutputString() + "]");
+        System.out.println("After revert String:[" + compressorTwoIDSplitWithNumber.revert() + "]");
     }
 
     @Test

@@ -31,7 +31,7 @@ public class Compressor1 {
         letterArr = this.inputString.toCharArray();
         int i = 0;
         while(i < letterArr.length){
-            if((letterArr[i] >= 'a' && letterArr[i] <= 'z') || letterArr[i] >='A' && letterArr[i] <= 'Z'){
+            if(Character.isLowerCase(letterArr[i]) || Character.isUpperCase(letterArr[i])){
                 word += letterArr[i];
                 i++;
                 continue;
@@ -41,7 +41,11 @@ public class Compressor1 {
                     index ++;
                 }
                 word = "";
-                this.outputString += letterArr[i];
+                if(Character.isDigit(letterArr[i])){
+                    this.outputString += "\\" + letterArr[i];
+                } else {
+                    this.outputString += letterArr[i];
+                }
             }
             i++;
         }
@@ -49,7 +53,6 @@ public class Compressor1 {
         if(word.length() > 0){
             processWord(word, index);
         }
-//        System.out.println(this.outputString);
     }
 
     public String revert(){
@@ -60,20 +63,18 @@ public class Compressor1 {
         int i = 0;
         System.out.println("revert string:");
         while( i < letterArr.length){
+            if( letterArr[i] == '\\' ){
+                i ++;
+            }
             if( letterArr[i] == '$' ){
                 for( int j = i + 1; j < letterArr.length; j++){
-                    if( j < letterArr.length && (letterArr[j] - 48 >= 0 && letterArr[j] -48 <=9)){
+                    if( j < letterArr.length && Character.isDigit(letterArr[j])){
                         specialWord += letterArr[i+1];
                         i ++;
                     } else {
                         break;
                     }
                 }
-//                if( i+1 < letterArr.length && (letterArr[i+1] - 48 >= 0 && letterArr[i+1] -48 <=9)){
-//                    specialWord += letterArr[i+1];
-//                    i ++;
-//                    continue;
-//                }
             }
             if(specialWord.length() > 0){
                 Integer value = null;
@@ -91,11 +92,8 @@ public class Compressor1 {
     }
 
     public String getWord(Integer value){
-    //    List<Object> keyList = new ArrayList<>();
         String word = null;
         for(String key: this.identifierMap.keySet()){
-    //        System.out.println("key:[" + key + "]");
-    //        System.out.println("value:["+ this.identifierMap.get(key) + "]");
             if(this.identifierMap.get(key).equals(value)){
                 word = key;
             }
@@ -110,6 +108,5 @@ public class Compressor1 {
             this.identifierMap.put(word, index);
             this.outputString += word;
         }
-//        System.out.println("word:[" + word + "]");
     }
 }
