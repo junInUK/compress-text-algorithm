@@ -96,7 +96,7 @@ public class Compressor1 {
             }
             i++;
         }
-
+        //  process the last word
         if(word.length() > 0){
             processWord(word.toString(), index, tmpOutputString);
         }
